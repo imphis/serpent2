@@ -1,0 +1,27 @@
+.iconbtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--bordersubtle);
+    background: var(--bgpanel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.iconbtn:hover {
+    border-color: var(--bordersoft);
+    background: var(--bgpanelhover);
+}
+
+svg.icon {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}

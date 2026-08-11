@@ -1,0 +1,11 @@
+.subcopy {
+    margin: 26px auto 0;
+    max-width: 520px;
+    color: var(--textmuted);
+    font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+.subcopy span {
+    white-space: nowrap;
+}

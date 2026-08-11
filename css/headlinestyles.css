@@ -1,0 +1,12 @@
+h1.headline {
+    font-family: "Sora", sans-serif;
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+}
+
+h1.headline .lineaccent {
+    color: var(--accent);
+    text-shadow: 0 0 40px var(--accentglow);
+}
