@@ -1,0 +1,57 @@
+.resellerlist {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    width: 100%;
+    max-width: 560px;
+    margin: 42px auto 0;
+}
+
+.reselleritem {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--textprimary);
+}
+
+.resellerimg {
+    width: auto;
+    height: 36px;
+    max-width: 160px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.reselleraction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.resellerbuy {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--textmuted);
+    transition: color 0.2s ease;
+}
+
+.resellerarrow {
+    width: 18px;
+    height: 18px;
+    color: var(--textmuted);
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.reselleritem:hover .resellerbuy {
+    color: var(--accent);
+}
+
+.reselleritem:hover .resellerarrow {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+}
