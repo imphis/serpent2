@@ -1,8 +1,4 @@
 (function () {
-  const viewels = document.querySelectorAll('.view');
-  const navlinks = document.querySelectorAll('.navlinks a[data-view]');
-  const platformtabs = document.getElementById('platformtabs');
-  const signinwrap = document.getElementById('signinwrap');
   const downloadbtn = document.getElementById('downloadbtn');
   const downloadoverlay = document.getElementById('downloadoverlay');
   const downloadclose = document.getElementById('downloadclose');
@@ -14,31 +10,23 @@
     if (viewname === currentview) return;
     currentview = viewname;
 
-    viewels.forEach((viewel) => {
-      viewel.classList.toggle('isactive', viewel.dataset.view === viewname);
+    document.querySelectorAll('.view').forEach((viewel) => {
+      viewel.classList.toggle('isactive', viewel.id === 'view' + viewname);
     });
 
-    navlinks.forEach((linkel) => {
-      linkel.classList.toggle('active', linkel.dataset.view === viewname);
+    document.querySelectorAll('.navlinks a').forEach((linkel) => {
+      linkel.classList.toggle('active', linkel.id === 'nav' + viewname);
     });
-
-    const onupdates = viewname === 'updates';
-    if (platformtabs) platformtabs.hidden = !onupdates;
-    if (signinwrap) signinwrap.hidden = onupdates;
-
-    if (onupdates && window.krebskulmupdates) {
-      window.krebskulmupdates.activate();
-    }
 
     if (typeof window.resetnavunderline === 'function') {
       window.resetnavunderline();
     }
   }
 
-  navlinks.forEach((linkel) => {
+  document.querySelectorAll('.navlinks a').forEach((linkel) => {
     linkel.addEventListener('click', (event) => {
       event.preventDefault();
-      setview(linkel.dataset.view);
+      setview(linkel.id.replace('nav', ''));
     });
   });
 

@@ -61,50 +61,6 @@ nav::before {
         opacity 0.2s ease;
 }
 
-.navright {
-    grid-column: 3;
-    justify-self: end;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.signinwrap {
-    display: flex;
-    align-items: center;
-}
-
-.discordicon {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-}
-
-.useravatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    padding: 0;
-    background: none;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 0 14px var(--accentglow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.useravatar:hover {
-    transform: scale(1.06);
-    box-shadow: 0 0 22px var(--accentglow);
-}
-
-.useravatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
 @media (max-width: 760px) {
     .navlinks {
         display: none;

@@ -30,7 +30,6 @@
 }
 
 .viewhome,
-.viewupdates,
 .viewbuy {
     min-height: calc(100dvh - 80px);
 }
@@ -191,24 +190,30 @@
 }
 
 .dlplatformchoice {
+    --logoscale: 0.97;
     display: flex;
     align-items: center;
     justify-content: center;
     background: none;
     border: none;
     padding: 12px;
-    color: #84817a;
     cursor: pointer;
-    transition: color 0.15s ease, transform 0.15s ease;
+    transition: transform 0.15s ease;
 }
 
-.dlplatformchoice svg {
-    width: 52px;
-    height: 52px;
+.dlplatformchoice.dlwindows {
+    --logoscale: 1.25;
+}
+
+.dlplatformchoice img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    pointer-events: none;
+    transform: scale(var(--logoscale));
 }
 
 .dlplatformchoice:hover {
-    color: #f3f1ea;
     transform: translateY(-3px) scale(1.06);
 }
 
