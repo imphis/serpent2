@@ -4,7 +4,7 @@
   const downloadclose = document.getElementById('downloadclose');
   const downloadchoices = document.querySelectorAll('.dlplatformchoice');
 
-  let currentview = 'home';
+  let currentview = null;
 
   function setview(viewname) {
     if (viewname === currentview) return;
@@ -23,12 +23,18 @@
     }
   }
 
-  document.querySelectorAll('.navlinks a').forEach((linkel) => {
-    linkel.addEventListener('click', (event) => {
-      event.preventDefault();
-      setview(linkel.id.replace('nav', ''));
-    });
-  });
+  function viewfromhash() {
+    const name = window.location.hash.replace('#', '');
+    return document.getElementById('view' + name) ? name : 'home';
+  }
+
+  function syncfromhash() {
+    setview(viewfromhash());
+  }
+
+  window.addEventListener('hashchange', syncfromhash);
+
+  syncfromhash();
 
   if (downloadbtn && downloadoverlay) {
     downloadbtn.addEventListener('click', () => {
