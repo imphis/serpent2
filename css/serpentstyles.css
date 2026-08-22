@@ -15,22 +15,10 @@
 
 .view.isactive {
     display: block;
-    animation: viewfadein 0.4s ease;
-}
-
-@keyframes viewfadein {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .viewhome,
-.viewbuy {
+.viewresellers {
     min-height: calc(100dvh - 80px);
 }
 
