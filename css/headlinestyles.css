@@ -4,6 +4,11 @@ h1.headline {
     line-height: 1.02;
     letter-spacing: -0.02em;
     font-size: clamp(2.6rem, 7vw, 5rem);
+    background: linear-gradient(135deg, #f4f6fc 0%, #cfd3e0 45%, #7c88ad 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #cfd3e0;
 }
 
 h1.headline .lineaccent {

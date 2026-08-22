@@ -22,6 +22,23 @@
     min-height: calc(100dvh - 80px);
 }
 
+.viewresellers .headline {
+    opacity: 0;
+    animation: titlein 0.9s ease forwards;
+}
+
+.viewresellers .subcopy {
+    opacity: 0;
+    animation: btnin 0.9s ease forwards;
+    animation-delay: 0.12s;
+}
+
+.viewresellers .resellerlist {
+    opacity: 0;
+    animation: btnin 0.9s ease forwards;
+    animation-delay: 0.24s;
+}
+
 .main {
     position: absolute;
     top: 50%;
