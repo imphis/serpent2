@@ -25,11 +25,17 @@
 
   function viewfromhash() {
     const name = window.location.hash.replace('#', '');
-    return document.getElementById('view' + name) ? name : 'home';
+    if (!name) return 'home';
+    return document.getElementById('view' + name) ? name : null;
   }
 
   function syncfromhash() {
-    setview(viewfromhash());
+    const name = viewfromhash();
+    if (!name) {
+      window.location.replace('404.html');
+      return;
+    }
+    setview(name);
   }
 
   window.addEventListener('hashchange', syncfromhash);
