@@ -1,0 +1,59 @@
+.nfmain {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100dvh;
+    padding: 24px;
+}
+
+.nfcode {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: clamp(5rem, 22vw, 11rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--textprimary);
+}
+
+.nfzero {
+    color: var(--accent);
+    text-shadow: 0 0 60px var(--accentglow);
+}
+
+.nfmessage {
+    margin-top: 18px;
+}
+
+.nfquestion {
+    margin-top: 16px;
+    color: var(--textprimary);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.nfbtn {
+    margin-top: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: 8px;
+    border: 1px solid #2a2925;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--textprimary);
+    font-size: 15px;
+    font-weight: 500;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.15s ease;
+}
+
+.nfbtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #3a3830;
+    transform: translateY(-2px);
+}
