@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>serpent icon aligner</title>
+    <style>
+        :root {
+            --bgprimary: #0b0b0a;
+            --bgpanel: #15171f;
+            --bordersubtle: #2a2e38;
+            --textprimary: #f3f1ea;
+            --textmuted: #9099ad;
+            --accent: #a4b7dc;
+            --guideo: 0.7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bgprimary);
+            color: var(--textprimary);
+            font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        .tooltop {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--bordersubtle);
+            background: var(--bgpanel);
+            z-index: 10;
+        }
+
+        .tooltitle {
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-right: 8px;
+        }
+
+        .toolctl {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: var(--textmuted);
+        }
+
+        .toolctl input[type="range"] {
+            width: 130px;
+            accent-color: var(--accent);
+        }
+
+        .toolload {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--bordersubtle);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            cursor: pointer;
+            transition: border-color 0.15s ease;
+        }
+
+        .toolload:hover {
+            border-color: var(--accent);
+        }
+
+        .toolload input {
+            display: none;
+        }
+
+        .resetbtn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--bordersubtle);
+            background: none;
+            color: var(--textmuted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .resetbtn:hover {
+            color: var(--textprimary);
+            border-color: var(--accent);
+        }
+
+        .posreadout {
+            margin-left: auto;
+            font-family: Consolas, monospace;
+            font-size: 0.78rem;
+            color: var(--textmuted);
+        }
+
+        .stagewrap {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .crossline {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+            opacity: var(--guideo);
+        }
+
+        .hline {
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: repeating-linear-gradient(90deg, var(--accent) 0 10px, transparent 10px 18px);
+        }
+
+        .vline {
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: repeating-linear-gradient(180deg, var(--accent) 0 10px, transparent 10px 18px);
+        }
+
+        .guidebox {
+            position: relative;
+            z-index: 3;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .guidebox.dragging {
+            cursor: grabbing;
+        }
+
+        .guidebox img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            -webkit-user-drag: none;
+            pointer-events: none;
+        }
+
+        .ring,
+        .ringsafe {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: var(--guideo);
+        }
+
+        .ring {
+            inset: -1px;
+            border: 2px solid var(--accent);
+        }
+
+        .ringsafe {
+            inset: 11%;
+            border: 1px dashed rgba(164, 183, 220, 0.55);
+        }
+
+        .centertick {
+            position: absolute;
+            z-index: 4;
+            background: var(--accent);
+            pointer-events: none;
+            opacity: var(--guideo);
+        }
+
+        .tickh {
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 1px;
+            transform: translate(-50%, -50%);
+        }
+
+        .tickv {
+            top: 50%;
+            left: 50%;
+            width: 1px;
+            height: 14px;
+            transform: translate(-50%, -50%);
+        }
+
+        .toolhint {
+            padding: 10px 20px;
+            border-top: 1px solid var(--bordersubtle);
+            background: var(--bgpanel);
+            font-size: 0.72rem;
+            color: var(--textfaint);
+            text-align: center;
+        }
+    </style>
+</head>
+    <body>
+        <header class="tooltop">
+            <span class="tooltitle">serpent icon aligner</span>
+
+            <label class="toolload">load png
+                <input type="file" id="fileinput" accept="image/*">
+            </label>
+
+            <label class="toolctl">size
+                <input type="range" id="sizeslider" min="96" max="720" step="8" value="480">
+                <span id="sizereadout">480</span>
+            </label>
+
+            <label class="toolctl">guides
+                <input type="range" id="opacityslider" min="10" max="100" value="70">
+            </label>
+
+            <button class="resetbtn" id="resetbtn" type="button">recenter</button>
+
+            <span class="posreadout" id="posreadout">x +0 y +0</span>
+        </header>
+
+        <main class="stagewrap" id="stagewrap">
+            <div class="crossline hline"></div>
+            <div class="crossline vline"></div>
+
+            <div class="guidebox" id="guidebox" style="width: 480px; height: 480px;">
+                <img id="iconimg" src="images/favicons/512x512.png" alt="">
+                <div class="ring"></div>
+                <div class="ringsafe"></div>
+            </div>
+
+            <div class="centertick tickh"></div>
+            <div class="centertick tickv"></div>
+        </main>
+
+        <footer class="toolhint">drag the icon or use arrow keys to nudge (hold shift for 10px steps) &middot; the solid circle is the icon edge &middot; the dashed circle is a safe zone &middot; load your edited png anytime</footer>
+
+        <script>
+            (function () {
+              const stagewrap = document.getElementById('stagewrap');
+              const guidebox = document.getElementById('guidebox');
+              const iconimg = document.getElementById('iconimg');
+              const fileinput = document.getElementById('fileinput');
+              const sizeslider = document.getElementById('sizeslider');
+              const sizereadout = document.getElementById('sizereadout');
+              const opacityslider = document.getElementById('opacityslider');
+              const resetbtn = document.getElementById('resetbtn');
+              const posreadout = document.getElementById('posreadout');
+
+              let offx = 0;
+              let offy = 0;
+
+              function render() {
+                guidebox.style.transform = 'translate(' + offx + 'px, ' + offy + 'px)';
+                posreadout.textContent = 'x ' + (offx >= 0 ? '+' : '') + offx + ' y ' + (offy >= 0 ? '+' : '') + offy;
+              }
+
+              function recenter() {
+                offx = 0;
+                offy = 0;
+                render();
+              }
+
+              let dragx = 0;
+              let dragy = 0;
+              let dragging = false;
+
+              guidebox.addEventListener('pointerdown', (event) => {
+                dragging = true;
+                dragx = event.clientX - offx;
+                dragy = event.clientY - offy;
+                guidebox.classList.add('dragging');
+                guidebox.setPointerCapture(event.pointerId);
+              });
+
+              guidebox.addEventListener('pointermove', (event) => {
+                if (!dragging) return;
+                offx = Math.round(event.clientX - dragx);
+                offy = Math.round(event.clientY - dragy);
+                render();
+              });
+
+              guidebox.addEventListener('pointerup', () => {
+                dragging = false;
+                guidebox.classList.remove('dragging');
+              });
+
+              window.addEventListener('keydown', (event) => {
+                const step = event.shiftKey ? 10 : 1;
+                if (event.key === 'ArrowLeft') offx -= step;
+                else if (event.key === 'ArrowRight') offx += step;
+                else if (event.key === 'ArrowUp') offy -= step;
+                else if (event.key === 'ArrowDown') offy += step;
+                else return;
+                event.preventDefault();
+                render();
+              });
+
+              sizeslider.addEventListener('input', () => {
+                guidebox.style.width = sizeslider.value + 'px';
+                guidebox.style.height = sizeslider.value + 'px';
+                sizereadout.textContent = sizeslider.value;
+              });
+
+              opacityslider.addEventListener('input', () => {
+                document.documentElement.style.setProperty('--guideo', opacityslider.value / 100);
+              });
+
+              fileinput.addEventListener('change', () => {
+                const file = fileinput.files[0];
+                if (!file) return;
+                iconimg.src = URL.createObjectURL(file);
+                recenter();
+              });
+
+              resetbtn.addEventListener('click', recenter);
+              render();
+            })();
+        </script>
+    </body>
+</html>
